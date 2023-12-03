@@ -1,4 +1,4 @@
-import "./App.css";
+import "./Dictionary.css";
 import { useState } from "react";
 import useDictionaryApi from "./useApiCall";
 import SearchInput from "./SearchField";
@@ -17,22 +17,27 @@ function Dictionary() {
 
   return (
     <div className='dictionary'>
-      <h1>Dictionary API Example</h1>
-      <SearchInput
-        value={word}
-        onChange={handleInputChange}
-        onButtonClick={handleApiCall}
-      />
+      <div className='searchDiv'>
+        <h1 style={{ fontSize: "4rem" }}>
+          Just another <br /> dictionary ™
+        </h1>
+        <h2>Search the database</h2>
+        <SearchInput
+          value={word}
+          onChange={handleInputChange}
+          onButtonClick={handleApiCall}
+        />
+      </div>
 
       {apiData && (
-        <>
-          <h2>{apiData.word}</h2>
+        <div className='responseDiv'>
+          <h2 style={{ fontSize: "3rem" }}>{apiData.word}</h2>
 
           {/* Iterate over phonetics if available */}
           {apiData.phonetics &&
             apiData.phonetics.map((phonic, index) => (
               <div key={index}>
-                {phonic.text && <p>Text: {phonic.text}</p>}
+                {phonic.text && <p>{phonic.text}</p>}
                 {phonic.audio && <audio src={phonic.audio} controls />}
               </div>
             ))}
@@ -47,10 +52,18 @@ function Dictionary() {
                 {meaning.definitions &&
                   meaning.definitions.map((definition, i) => (
                     <div key={i}>
-                      <p>Definition: {definition.definition}</p>
-                      {definition.example && (
-                        <p>Example: {definition.example}</p>
-                      )}
+                      <ul>
+                        <li>{definition.definition}</li>
+                        {definition.example && (
+                          <p style={{ fontWeight: "bold" }}>
+                            Example:{" "}
+                            <span style={{ fontWeight: "normal" }}>
+                              {definition.example}
+                            </span>
+                          </p>
+                        )}
+                      </ul>
+
                       {/* Display synonyms and antonyms if available */}
                       {definition.synonyms.length > 0 && (
                         <p>Synonyms: {definition.synonyms.join(", ")}</p>
@@ -62,7 +75,7 @@ function Dictionary() {
                   ))}
               </div>
             ))}
-        </>
+        </div>
       )}
 
       {error && <p style={{ color: "red" }}>{error}</p>}
