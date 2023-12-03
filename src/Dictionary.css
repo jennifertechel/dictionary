@@ -1,0 +1,22 @@
+.dictionary {
+  margin: 100px 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.searchInput {
+  display: flex;
+}
+
+.searchDiv {
+  width: 50%;
+  margin-left: 4rem;
+}
+
+.responseDiv {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-right: 2rem;
+}
