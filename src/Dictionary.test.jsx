@@ -51,6 +51,7 @@ test.todo("should find audio file", async () => {
   await user.click(inputField);
   await user.type(inputField, "hello");
   await user.click(button);
+  // Test for audio element to be rendered
   await waitFor(() =>
     expect(screen.getAllByTestId("audio-element")).toBeInTheDocument()
   );
